@@ -1,0 +1,24 @@
+<form id="providerEmployeeAdd" name="providerEmployeeAdd" class="form-group"
+      ng-submit="submit()" novalidate>
+
+
+<div class="modal-footer">
+    <h3 class="modal-title">Вибрати відповідальну особу: </h3>
+    <select class="form-control" name="provider"
+            ng-model="formData.provider"
+            ng-options="provider as providerFullName(provider) for provider in providers track by provider.firstName">
+    </select>
+</div>
+
+
+<div class="modal-footer form-group">
+    <button class="btn btn-success pull-left" type="submit">
+        Підтвердити
+    </button>
+
+    <button class="btn btn-danger pull-right" type="button" ng-click="cancel()">
+        Відмінити
+    </button>
+</div>
+</form>
+

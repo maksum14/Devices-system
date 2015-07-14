@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3 class="modal-title">Детальна інформація про кількість заявок працівника</h3>
+    <h2> {{employee}}</h2>
+</div>
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="col-md-2">Дата початку процесу повірки</th>
+            <th>Реєстраційний номер повірки</th>
+            <th>Прізвище клієнта</th>
+            <th>Імя клієнта</th>
+            <th>Район</th>
+            <th>Місто</th>
+            <th>Вулиця, на якій проживає клієнт</th>
+            <th>Номер телефону</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="verification in verifications">
+            <td>{{ verification.initialDate | date}}</td>
+            <td class="verificationNumber">
+                <span popover="{{verification.id}}" popover-trigger="mouseenter" popover-placement="up">
+                    {{ verification.id}}</span></td>
+            <td>{{ verification.surname }}</td>
+            <td>{{ verification.name }}</td>
+            <td>{{ verification.district }}</td>
+            <td>{{ verification.locality }}</td>
+            <td>{{ verification.street }}</td>
+            <td>{{ verification.phone }}</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="close()">Закрити</button>
+</div>

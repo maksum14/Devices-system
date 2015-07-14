@@ -1,0 +1,93 @@
+<div id="page-wrapper" ng-show="accessLable">
+    <h1>У вас немає права доступу до даної інформації</h1>
+    <i class="fa fa-times-circle-o"></i>
+</div>
+
+<div id="page-wrapper" ng-controller="UsersController" ng-show="verificator">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Користувачі </h1>
+        </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Працівники
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button ng-click="tableParams.filter({})" ng-show="isFilter()"
+                                    class="btn btn-warning pull-right is-filter">Очистити пошук
+                            </button>
+
+                            <table show-filter="true" ng-table="tableParams" template-pagination="employee/pager"
+                                   class="table table-bordered table-hover users_table">
+
+                                <tbody>
+                                <tr ng-repeat="user in $data">
+                                    <td data-title="'Псевдонім користувача'" filter="{ 'username': 'text' }">{{
+                                        user.username }}
+                                    </td>
+                                    <td data-title="'Роль'" filter="{ 'role': 'text' }">{{ user.role }}</td>
+                                    <td data-title="'Імя'" filter="{ 'firstName': 'text' }">{{ user.firstName }}</td>
+                                    <td data-title="'Прізвище'" filter="{ 'lastName': 'text' }">{{ user.lastName }}</td>
+                                    <td data-title="'Організація'" filter="{ 'organization': 'text' }">{{
+                                        user.organization }}
+                                    </td>
+                                    <td data-title="'Номер телефону'" filter="{ 'phone': 'text' }">{{ user.phone }}</td>
+                                    <td data-title="'Кількість заявок в роботі'"
+                                        filter="{ 'countOfVarification': 'text' }">
+                                        <a ng-href="" ng-click="showCapacity(user.username,user.countOfWork)"> {{ user.countOfVarification }}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <script type="text/ng-template" id="employee/pager">
+                        <div>
+                            <ul class="pager ng-cloak">
+                                <li ng-repeat="page in pages"
+                                    ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                                    ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                                    <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo;
+                                        Previous</a>
+                                    <a ng-switch-when="next" ng-click="params.page(page.number)"
+                                       href="">Next &raquo;</a>
+                                </li>
+                                <li>
+                                    <div class="btn-groups">
+                                        <button type="button" ng-class="{'active':params.count() == 5}"
+                                                ng-click="params.count(5)" class="btn btn-default">5
+                                        </button>
+                                        <button type="button" ng-class="{'active':params.count() == 10}"
+                                                ng-click="params.count(10)" class="btn btn-default">10
+                                        </button>
+                                        <button type="button" ng-class="{'active':params.count() == 25}"
+                                                ng-click="params.count(25)" class="btn btn-default">25
+                                        </button>
+                                        <button type="button" ng-class="{'active':params.count() == 50}"
+                                                ng-click="params.count(50)" class="btn btn-default">50
+                                        </button>
+                                        <button type="button" ng-class="{'active':params.count() == 100}"
+                                                ng-click="params.count(100)" class="btn btn-default">100
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </script>
+
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /#page-wrapper -->

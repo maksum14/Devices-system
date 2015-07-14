@@ -1,0 +1,134 @@
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">Нові повірки</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Останні дані
+                	</div>
+                	<div class="panel-body">
+                		<div class="col-md-7 col-md-offset-0">
+                			<div class="row">
+								 <form name="form" class = "form-inline" ng-submit="doSearch()"> 
+									<div class="form-group">
+								 		<strong><p class="form-control-static">Search by: </p></strong>
+								 	</div>
+								 	<div class="form-group">
+		                                <select ng-model="search.type" ng-change="clearInput()" class="form-control">
+		                                    <option value="id" selected="selected">ID</option>
+		                                    <option value="lastName">Last Name</option>
+		                                    <option value="street">Street</option>
+		                                    <option value="date" >Initial Date</option>
+		                                </select>
+                          			</div>	 
+                          			
+                          			<div class="form-group" ng-hide="search.type =='date'">	 
+	                                	<input name="otherTypes" type="text" class="form-control" ng-model="search.text" required>
+										<span ng-show="form.otherTypes.$error.required && search.type!=''">Cannot be empty!</span>
+										<button class="btn btn-primary" ng-hide="form.$error.required" type="submit">Search</button> 
+									</div>
+									
+                          			<div class="form-group" ng-hide="search.type !='date'">	 
+                                		<input name="initDate" class="form-control"
+		     							ng-pattern='/^(0?[1-9]|1\d|2[0-8]|29(?=[-]\d?\d[-](?!1[01345789]00|2[1235679]00)\d\d(?:[02468][048]|[13579][26]))|30(?![-]0?2)|31(?=[-]0?[13578]|[-]1[02]))[-](0?[1-9]|1[0-2])[-]([12]\d{3})$/'
+		      							required ng-model="search.text" type="text">
+										<span ng-show="form.initDate.$error.required && search.type!=''">Cannot be empty!</span>
+								 		<span ng-show="form.initDate.$error.pattern">Format: DD-MM-YYYY</span>
+										<button class="btn btn-primary" ng-hide="!form.$valid" type="submit">Search</button>
+									</div>
+								</form>
+							</div>
+						</div>
+                   <div class="row">
+                        <div class="col-md-12">
+                            <table  ng-table="tableParams" template-pagination="custom/pager" class="table table-bordered table-hover" >
+                                <thead>
+                                <tr>
+                                    <th>Дата початку процесу повірки</th>
+                                    <th>Реєстраційний номер повірки</th>
+                                    <th>Прізвище клієнта</th>
+                                    <th>Вулиця, на якій проживає клієнт</th>
+                                    <th>Дії<br/> <br/></th>
+                                    <th>Відправити державному повірнику</th>
+                                </tr>
+                                </thead>
+								 <tbody>
+                                <tr ng-repeat="verification in $data" 
+                                ng-class="{'unreadClass': verification.readStatus=='UNREAD'}">
+                                    <td>{{ verification.initialDate | date}}</td>
+                                    <td>{{ verification.id}}</td>
+                                    <td>{{ verification.surname }}</td>
+                                    <td>{{ verification.street }}</td>
+                                <td class="text-center">
+                                        <a popover="Детальніше"
+                                           popover-trigger="mouseenter"
+                                           ng-click="openDetails(verification.id, verification.initialDate, verification.readStatus)">
+                                            <i class="fa fa-info-circle"></i>
+                                        </a>
+                                        <a popover="Створити тест"
+                                           popover-trigger="mouseenter"
+                                           ui-sref="calibration-test">
+                                            <i class="fa fa-check-square-o"></i>
+                                        </a>
+                                    <td class="text-center">
+                                        <input type="checkbox"
+                                               ng-click="resolveVerificationId(verification.id)"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+							<script type="text/ng-template" id="custom/pager">
+                                <div>
+                                    <p id="emptyError" ng-if="allIsEmpty && isClicked"
+                                       class="help-block col-md-3 col-md-offset-9">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                        Оберіть хоча б одну повірку
+                                    </p>
+
+                                    <div class="col-md-3 col-md-offset-10 sendButton">
+                                        <button type="button" class="btn btn-primary"
+                                                ng-click="openSendingModal()">Надіслати
+                                        </button>
+                                    </div>
+                                    <ul class="pager ng-cloak">
+                                        <li ng-repeat="page in pages"
+                                            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                                            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                                            <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo;
+                                                Previous</a>
+                                            <a ng-switch-when="next" ng-click="params.page(page.number)"
+                                               href="">Next &raquo;</a>
+                                        </li>
+                                        <li>
+                                            <div class="btn-group">
+                                                <button type="button" ng-class="{'active':params.count() == 5}"
+                                                        ng-click="params.count(5)" class="btn btn-default">5
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 10}"
+                                                        ng-click="params.count(10)" class="btn btn-default">10
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 25}"
+                                                        ng-click="params.count(25)" class="btn btn-default">25
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 50}"
+                                                        ng-click="params.count(50)" class="btn btn-default">50
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </script>
+                   		</div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,91 @@
+<section id="applicationStatusSection">
+
+	<div class="container">
+
+		<div class="row col-md-12 centered">
+			<h1>{{'APP_STATUS_TITLE' | translate}}</h1>
+		</div>
+
+		<div class="from-top">
+			<div ng-show="isShownForm" class="row col-md-10 centered">
+
+				<form class="form-horizontal" ng-submit="getClientForm()">
+
+					<div class="form-group">
+						<label for="code" class="col-md-2 control-label">
+							{{'APPLICATION_CODE' | translate}} </label>
+
+						<div class="row">
+							<div class="form-group col-md-8">
+								<input class="form-control" id="code" ng-model="code" required>
+							</div>
+
+							<div class="form-group col-md-2">
+								<button type="submit" class="btn btn-success text-uppercase">
+									{{'SEARCH_BTN' | translate}}</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div ng-hide="isShownForm"
+				class="{{checkStyle}}"
+				role="alert">
+				<button ng-click="closeAlert()" type="button"
+					class="close btn-close-alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				{{'APPLICATION_STATUS' | translate}} : {{status }}
+
+
+			</div>
+			<div class="row " ng-if="verification.status">
+				<div class="col-md-12">
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Прізвище клієнта</th>
+								<th>Ім'я</th>
+								<th>Дата початку процесу повірки</th>
+								<th>Населений пункт</th>
+								<th>Вулиця</th>
+								<th>Будинок</th>
+
+								<th>Дії</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>{{ verification.lastName}}</td>
+								<td>{{ verification.firstName}}</td>
+								<td>{{ verification.initialDate | date}}</td>
+								<td>{{ verification.locality }}</td>
+
+								<td>{{ verification.street }}</td>
+
+								<td>{{verification.building}}</td>
+
+								<td class="text-center"><a popover="Детальніше"
+									popover-trigger="mouseenter" ng-click="openDetails()"> <i
+										class="fa fa-info-circle"></i>
+								</a> <a ng-show="verification.status === 'COMPLETED'"
+									popover="Завантажити тестові дані у форматі 'docx'"
+									popover-trigger="mouseenter"
+									href="{{'/doc/' + verification.id + '/docx'}}"> <i
+										class="fa fa-file-word-o"></i>
+								</a> <a ng-show="verification.status === 'COMPLETED'"
+									popover="Завантажити тестові дані у форматі 'pdf'"
+									popover-trigger="mouseenter"
+									href="{{'/doc/' + verification.id + '/pdf'}}"> <i
+										class="fa fa-file-pdf-o"></i>
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

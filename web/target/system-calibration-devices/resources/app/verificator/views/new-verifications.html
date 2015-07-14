@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<div id="page-wrapper">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="page-header">Нові повірки</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Останні дані</div>
+
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-offset-11">
+								<label> Показати по <select ng-model="itemsPerPage"
+									ng-change="onTableHandling()" class="form-control input-sm">
+										<option value="1">1</option>
+										<option value="3">3</option>
+										<option value="5">5</option>
+										<option value="10" selected>10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select>
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>Дата початку процесу повірки</th>
+											<th>Реєстраційний номер повірки</th>
+											<th>Прізвище клієнта</th>
+											<th>Вулиця, на якій проживає клієнт</th>
+											<th>Дії<br /> <br /></th>
+											<th>Відправити провайдеру</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr
+											ng-repeat="verification in pageData | orderBy:'-initialDate'"
+											  ng-class="{'unreadClass': verification.readStatus=='UNREAD'}">
+											<td>{{ verification.initialDate | date}}</td>
+											<td>{{ verification.id }}</td>
+											<td>{{ verification.surname }}</td>
+											<td>{{ verification.street }}</td>
+											<td class="text-center">
+											<a popover="Детальніше"
+												popover-trigger="mouseenter" 
+												ng-click="openDetails(verification.id, verification.initialDate, verification.readStatus)">
+                                            <i class="fa fa-info-circle"></i>
+											</a> 
+											<td class="text-center"><input type="checkbox"
+												ng-click="resolveVerificationId(verification.id)" /></td>
+										</tr>
+									</tbody>
+								</table>
+
+								<p id="emptyError" ng-if="allIsEmpty && isClicked"
+									class="help-block pull-right">
+									<span class="glyphicon glyphicon-exclamation-sign"></span>
+									Оберіть хоча б одну пвірку
+								</p>
+
+								<div class="col-md-offset-11">
+									<button type="button" class="btn btn-primary"
+										ng-click="openSendingModal()">Надіслати</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<pagination total-items="totalItems" ng-model="currentPage"
+									max-size="5" boundary-links="true" rotate="false"
+									ng-change="onTableHandling()" items-per-page="itemsPerPage"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

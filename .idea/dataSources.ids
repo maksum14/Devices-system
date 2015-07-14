@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - measurement_devices@localhost" uuid="4388e71c-a11e-473a-961d-d27654893385">
+    <database-info product="MySQL" version="5.6.22-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="measurement_devices"/>
+    <table name="building" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="designation" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="street_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_m4jiitv041woq1e67cl1y7wdf" columns="street_id" ref-table="street" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_m4jiitv041woq1e67cl1y7wdf" unique="false" columns="street_id"/>
+    </table>
+    <table name="calibration_test" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="consumptionStatus" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dateTest" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="longitude" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="document_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="document_sign" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="photoPath" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="settingNumber" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="temperature" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="testResult" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="verification_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_e3q3nusyj7hgvkcrxdy1l9wl5" columns="verification_id" ref-table="verification" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_rylpbq8yy1t62ppf3cc5cuylb" table="calibration_test_data" schema="" catalog="measurement_devices" columns="calibrationTest_id"/>
+      <index name="FK_e3q3nusyj7hgvkcrxdy1l9wl5" unique="false" columns="verification_id"/>
+    </table>
+    <table name="calibration_test_data" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="acceptableError" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="actualConsumption" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="calculationError" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="consumptionStatus" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="endValue" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="givenConsumption" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="initialValue" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="testResult" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="testTime" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="volumeInDevice" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="volumeOfStandard" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="calibrationTest_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_rylpbq8yy1t62ppf3cc5cuylb" columns="calibrationTest_id" ref-table="calibration_test" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_rylpbq8yy1t62ppf3cc5cuylb" unique="false" columns="calibrationTest_id"/>
+    </table>
+    <table name="device" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="deviceSign" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deviceType" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="manufacturer_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="provider_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_62j2xfouu1nh52jcw67li7gn0" columns="manufacturer_id" ref-table="manufacturer" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_gxhkbkpfu7j3o56x9485495oj" columns="provider_id" ref-table="organization" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_7kjc4la0wd5g7r48sulc3nav4" table="verification" schema="" catalog="measurement_devices" columns="device_id"/>
+      <index name="FK_62j2xfouu1nh52jcw67li7gn0" unique="false" columns="manufacturer_id"/>
+      <index name="FK_gxhkbkpfu7j3o56x9485495oj" unique="false" columns="provider_id"/>
+    </table>
+    <table name="district" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="designation" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="region_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_oupvtb3sgb4nk3blblu1wud7p" columns="region_id" ref-table="region" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_321gr9uvp9mmswlbq55i3jsh1" table="locality" schema="" catalog="measurement_devices" columns="district_id"/>
+      <index name="FK_oupvtb3sgb4nk3blblu1wud7p" unique="false" columns="region_id"/>
+    </table>
+    <table name="locality" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="designation" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="district_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_321gr9uvp9mmswlbq55i3jsh1" columns="district_id" ref-table="district" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_nhiqd5jdhekx1dbgxlig3i12h" table="street" schema="" catalog="measurement_devices" columns="locality_id"/>
+      <index name="FK_321gr9uvp9mmswlbq55i3jsh1" unique="false" columns="district_id"/>
+    </table>
+    <table name="manufacturer" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_62j2xfouu1nh52jcw67li7gn0" table="device" schema="" catalog="measurement_devices" columns="manufacturer_id"/>
+    </table>
+    <table name="organization" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="organization_type" sqlType="VARCHAR" precision="31" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="building" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="district" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="flat" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locality" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="certificateGrantedDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="certificateNumber" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_gxhkbkpfu7j3o56x9485495oj" table="device" schema="" catalog="measurement_devices" columns="provider_id"/>
+      <exported-key name="FK_42mrojwpsfajreok8js8ikbml" table="user" schema="" catalog="measurement_devices" columns="organization_id"/>
+      <exported-key name="FK_1m42qv7c2j6cs7exxwy0d6kcx" table="verification" schema="" catalog="measurement_devices" columns="provider_id"/>
+      <exported-key name="FK_766mldnhaymg32kekigjkedlx" table="verification" schema="" catalog="measurement_devices" columns="calibrator_id"/>
+      <exported-key name="FK_g4nalroa2t4myrvwwir11yk6p" table="verification" schema="" catalog="measurement_devices" columns="stateVerificator_id"/>
+    </table>
+    <table name="region" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="designation" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_oupvtb3sgb4nk3blblu1wud7p" table="district" schema="" catalog="measurement_devices" columns="region_id"/>
+    </table>
+    <table name="street" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="designation" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="locality_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_nhiqd5jdhekx1dbgxlig3i12h" columns="locality_id" ref-table="locality" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_m4jiitv041woq1e67cl1y7wdf" table="building" schema="" catalog="measurement_devices" columns="street_id"/>
+      <index name="FK_nhiqd5jdhekx1dbgxlig3i12h" unique="false" columns="locality_id"/>
+    </table>
+    <table name="user" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="user_type" sqlType="VARCHAR" precision="31" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="role" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="building" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="district" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="flat" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locality" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="firstName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="middleName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="organization_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="countOfWork" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="username"/>
+      <foreign-key name="FK_42mrojwpsfajreok8js8ikbml" columns="organization_id" ref-table="organization" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_6v13kccodu9a4ghbkhr5axloj" table="verification" schema="" catalog="measurement_devices" columns="providerEmployee_username"/>
+      <exported-key name="FK_9rvq3wygytbcm5ujyraq1uob6" table="verification" schema="" catalog="measurement_devices" columns="stateVerificatorEmployee_username"/>
+      <exported-key name="FK_l6ff6u9fh8mkrnyf2rhfxyibj" table="verification" schema="" catalog="measurement_devices" columns="calibratorEmployee_username"/>
+      <index name="FK_42mrojwpsfajreok8js8ikbml" unique="false" columns="organization_id"/>
+    </table>
+    <table name="verification" schema="" catalog="measurement_devices" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="building" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="district" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="flat" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locality" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="firstName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="middleName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="expirationDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="initialDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="calibrator_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="calibratorEmployee_username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="device_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="provider_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="providerEmployee_username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stateVerificator_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="stateVerificatorEmployee_username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="readStatus" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_1m42qv7c2j6cs7exxwy0d6kcx" columns="provider_id" ref-table="organization" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_6v13kccodu9a4ghbkhr5axloj" columns="providerEmployee_username" ref-table="user" ref-schema="" ref-catalog="measurement_devices" ref-columns="username" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_766mldnhaymg32kekigjkedlx" columns="calibrator_id" ref-table="organization" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_7kjc4la0wd5g7r48sulc3nav4" columns="device_id" ref-table="device" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_9rvq3wygytbcm5ujyraq1uob6" columns="stateVerificatorEmployee_username" ref-table="user" ref-schema="" ref-catalog="measurement_devices" ref-columns="username" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_g4nalroa2t4myrvwwir11yk6p" columns="stateVerificator_id" ref-table="organization" ref-schema="" ref-catalog="measurement_devices" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_l6ff6u9fh8mkrnyf2rhfxyibj" columns="calibratorEmployee_username" ref-table="user" ref-schema="" ref-catalog="measurement_devices" ref-columns="username" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_e3q3nusyj7hgvkcrxdy1l9wl5" table="calibration_test" schema="" catalog="measurement_devices" columns="verification_id"/>
+      <index name="FK_1m42qv7c2j6cs7exxwy0d6kcx" unique="false" columns="provider_id"/>
+      <index name="FK_6v13kccodu9a4ghbkhr5axloj" unique="false" columns="providerEmployee_username"/>
+      <index name="FK_766mldnhaymg32kekigjkedlx" unique="false" columns="calibrator_id"/>
+      <index name="FK_7kjc4la0wd5g7r48sulc3nav4" unique="false" columns="device_id"/>
+      <index name="FK_9rvq3wygytbcm5ujyraq1uob6" unique="false" columns="stateVerificatorEmployee_username"/>
+      <index name="FK_g4nalroa2t4myrvwwir11yk6p" unique="false" columns="stateVerificator_id"/>
+      <index name="FK_l6ff6u9fh8mkrnyf2rhfxyibj" unique="false" columns="calibratorEmployee_username"/>
+    </table>
+  </data-source>
+</component>

@@ -1,0 +1,180 @@
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">Нові повірки</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Останні дані
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table ng-table="tableParams" template-pagination="custom/pager"
+                                   class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-2">Дата початку процесу повірки</th>
+                                    <th>Реєстраційний номер повірки</th>
+                                    <th>Прізвище клієнта</th>
+                                    <th>Вулиця, на якій проживає клієнт</th>
+                                    <th>Дії<br/> <br/></th>
+                                    <th>Відповідальна особа</th>
+                                    <th>Відправити державному повірнику</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="input-group myDatePicker">
+                                            <input type="text" class="form-control input-sm"
+                                                   datepicker-popup="{{format}}" ng-model="dt"
+                                                   ng-change="changeDateToSend(dt)" is-open="openState.isOpen"
+                                                   min-date="minDate" datepicker-options="dateOptions"
+                                                   date-disabled="disabled(date, mode)" ng-required="true"
+                                                   close-text="Close"/>
+
+											  <span class="input-group-btn ">
+											     <button type="button" class="btn btn-default myGroupBtn"
+                                                         ng-click="open($event)">
+                                                     <i class="glyphicon glyphicon-calendar"></i>
+                                                 </button>
+											  </span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <input type="text" class="form-control input-sm" ng-model="search.idText"
+                                                   ng-change=doSearch()>
+ 		 									<span id="searchclear" class="glyphicon glyphicon-remove-circle"
+                                                  ng-show="search.idText.length"
+                                                  ng-click="clearId()"></span>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <input type="text" class="form-control input-sm"
+                                                   ng-model="search.lastNameText" ng-change=doSearch()>
+                                                <span id="searchclear" class="glyphicon glyphicon-remove-circle"
+                                                      ng-show="search.lastNameText.length"
+                                                      ng-click="clearLastName()"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <input type="text" class="form-control input-sm"
+                                                   ng-model="search.streetText" ng-change=doSearch()>
+                                                <span id="searchclear" class="glyphicon glyphicon-remove-circle"
+                                                      ng-show="search.streetText.length"
+                                                      ng-click="clearStreet()"></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center clearInput">
+                                        <button class="btn btn-danger btn-sm" ng-click="clearAll()"
+                                                ng-show="search.streetText.length && search.lastNameText.length && search.idText.length">
+                                            Clear all
+                                        </button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr ng-repeat="verification in $data"
+                                    ng-class="{'unreadClass': verification.readStatus=='UNREAD'}">
+                                    <td>{{ verification.initialDate | date}}</td>
+                                    <td class="verificationNumber">
+                                        <span popover="{{verification.id}}" popover-trigger="mouseenter"
+                                              popover-placement="up">{{ verification.id}}</span></td>
+                                    <td>{{ verification.surname }}</td>
+                                    <td>{{ verification.street }}</td>
+
+
+                                    <td class="text-left" class="showInline">
+                                        <span class="grid_actions">
+                                             <div>
+                                                 <button ng-show="!verification.providerEmployee"
+                                                         class="btn btn-success btn-sm"
+                                                         ng-click="addProviderEmployee(verification.id,verification.providerEmployee)">
+                                                     Взяти заявку
+                                                 </button>
+                                                 <button ng-show="verification.providerEmployee"
+                                                         class="btn btn-danger btn-sm"
+                                                         ng-click="removeProviderEmployee(verification.id)">
+                                                     Скасувати
+                                                 </button>
+                                             </div>
+                                            <a popover="Детальніше"
+                                               popover-trigger="mouseenter"
+                                               ng-click="openDetails(verification.id, verification.initialDate, verification.readStatus)">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </span>
+                                    </td>
+
+
+                                    <td> {{verification.providerEmployee}}</td>
+
+                                    <td class="text-center">
+                                        <input type="checkbox" ng-show="verification.providerEmployee"
+                                               ng-click="resolveVerificationId(verification.id)"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <script type="text/ng-template" id="custom/pager">
+                                <div>
+                                    <p id="emptyError" ng-if="allIsEmpty && isClicked"
+                                       class="help-block col-md-3 col-md-offset-9">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                        Оберіть хоча б одну повірку
+                                    </p>
+
+                                    <div class="col-md-3 col-md-offset-10 sendButton">
+                                        <button type="button" class="btn btn-primary"
+                                                ng-click="openSendingModal()">Надіслати
+                                        </button>
+                                    </div>
+                                    <ul class="pager ng-cloak">
+                                        <li ng-repeat="page in pages"
+                                            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                                            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                                            <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo;
+                                                Previous</a>
+                                            <a ng-switch-when="next" ng-click="params.page(page.number)"
+                                               href="">Next &raquo;</a>
+                                        </li>
+                                        <li>
+                                            <div class="btn-group">
+                                                <button type="button" ng-class="{'active':params.count() == 5}"
+                                                        ng-click="params.count(5)" class="btn btn-default">5
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 10}"
+                                                        ng-click="params.count(10)" class="btn btn-default">10
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 25}"
+                                                        ng-click="params.count(25)" class="btn btn-default">25
+                                                </button>
+                                                <button type="button" ng-class="{'active':params.count() == 50}"
+                                                        ng-click="params.count(50)" class="btn btn-default">50
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </script>
+                            <!---->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

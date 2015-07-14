@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3 class="modal-title">Будь ласка, виберіть державного повірника</h3>
+</div>
+
+
+<div class="from-top form-group ">
+    <form name="verificatorSelectionForm" class="form-group"
+          ng-submit="submit(selectedVerificator)" novalidate>
+
+        <div class="modal-body form-group" show-errors>
+
+            <input name="verificator" class="form-control"
+                   ng-model="selectedVerificator"
+                   typeahead="verificator as verificator.name for verificator in verificators | filter: $viewValue"
+                   typeahead-editable="false" required>
+
+            <span class="form-control-feedback glyphicon  form-horizontal glyphicon glyphicon-ok-sign"></span>
+
+            <p class="help-block">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Почніть вводити і виберіть відповідний варіант з випадаючого списку
+            </p>
+
+        </div>
+
+        <div class="modal-footer form-group">
+            <button class="btn btn-success pull-left" type="submit">
+                Підтвердити
+            </button>
+
+            <button class="btn btn-danger pull-right" type="button" ng-click="cancel()">
+                Відмінити
+            </button>
+        </div>
+    </form>
+</div>

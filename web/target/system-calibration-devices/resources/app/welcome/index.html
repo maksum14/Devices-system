@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/resources/assets/bower_components/bootstrap/dist/css/bootstrap.css"
+          rel="stylesheet">
+    <link href="/resources/assets/css/welcome.css" rel="stylesheet">
+    <link href="/resources/assets/css/application-form.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="/resources/assets/bower_components/ng-table/ng-table.css" rel="stylesheet">
+    <link href="/resources/assets/bower_components/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet">
+</head>
+
+<body id="welcomeModule" ng-controller="NavigationController">
+
+<div class="row">
+    <div id="loaderSpinner" ng-if="!loaded" class="col-md-2 col-md-offset-5">
+        <i class="fa fa-spinner fa-spin fa-camera-retro "></i>
+    </div>
+</div>
+
+
+<div id="content" ng-show="loaded" class="ng-hide">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="start">{{ 'START' | translate }}</a>
+            </div>
+
+            <div ng-controller="InternationalizationController">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" dropdown on-toggle="toggled(open)">
+                        <a class="dropdown-toggle" dropdown-toggle>
+                            {{ 'LANG' | translate }} <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="lang in languages">
+                                <a ng-click="changeLanguage(lang.key)">{{ lang.name }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="container">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-class="{ active: isActive('/about')}">
+                        <a ui-sref="about">{{ 'ABOUT' | translate }}</a>
+                    </li>
+
+                    <li ng-class="{ active: isActive('/login')}">
+                        <a ui-sref="login">{{ 'LOG_IN' | translate }}</a></li>
+
+                    <li ng-class="{ active: isActive('/application-sending')}">
+                        <a ui-sref="application-sending">{{ 'APPLY_FOR_VERIFCIATION' | translate
+                            }}</a>
+                    </li>
+
+                    <li ng-class="{ active: isActive('/application-status')}">
+                        <a ui-sref="application-status">{{ 'APP_STATUS' | translate }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div ui-view></div>
+</div>
+
+<script type="text/javascript" data-main="/resources/app/welcome/runApp"
+        src="/resources/assets/bower_components/requirejs/require.js"></script>
+
+</body>
+</html>

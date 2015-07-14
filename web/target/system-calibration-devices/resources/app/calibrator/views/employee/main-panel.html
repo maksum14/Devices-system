@@ -1,0 +1,31 @@
+<div id="page-wrapper" ng-show = "accessLable">
+<h1>У вас немає права доступу до даної інформації</h1>
+  <i class="fa fa-times-circle-o fa-5x"></i>
+</div>
+
+<div id="page-wrapper" ng-show = "verificator">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">Працівники</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Додати працівника
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12"
+                            ng-include="'/resources/app/calibrator/views/employee/adding-employee.html'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

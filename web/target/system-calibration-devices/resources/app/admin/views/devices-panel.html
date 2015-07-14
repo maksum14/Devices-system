@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+</head>
+
+<body>
+	<div id="page-wrapper" ng-controller="DeviceController">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">{{'COUNTERS' | translate}}</h1>
+			</div>
+		</div>
+
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">{{'COUNTERS' | translate}}</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-6">
+								<label>{{'FIND_BY_NUMBER' | translate}} <input type="text"
+									ng-model="searchData" ng-change="onTableHandling()"
+									ng-model-options="{debounce: 600}"
+									class="form-control input-sm">
+								</label>
+							</div>
+							<div class="col-sm-offset-6">
+								<label>{{'DISPLAY_ON' | translate}} <select ng-model="itemsPerPage"
+									ng-change="onTableHandling()" class="form-control input-sm">
+										<option value="1">1</option>
+										<option value="3">3</option>
+										<option value="5" selected>5</option>
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select>
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<table class="table table-striped table-bordered table-hover"
+									id="devicesTable">
+									<thead>
+										<tr>
+											<th>{{'UNIQUE_NUMBER'| translate}}</th>
+											<th>{{'SIGN_OF_COUNTER' | translate}}</th>
+											<th>{{'COUNTER_NUMBER' | translate}}</th>
+											<th>{{'TYPE_OF_COUNTER' | translate }}</th>
+											<!--  <th>блабла</th>
+											<th>блабла</th>-->
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="device in pageContent">
+											<td>{{ device.id }}</td>
+											<td>{{ device.deviceType }}</td>
+											<td>{{ device.deviceSign }}</td>
+											<td>{{ device.number }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<pagination total-items="totalItems" ng-model="currentPage"
+									max-size="5" boundary-links="true" rotate="false"
+									ng-change="onTableHandling()" items-per-page="itemsPerPage"></pagination>
+							</div>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+	<!-- /#page-wrapper -->
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{'FILL_IN_INFORMATION_ABOUT_ORGANIZATION' | translate}}</h3>
+</div>
+
+<div class="modal-body">
+
+	<form name="organizationForm" novalidate>
+
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label class="control-label">{{'ORGANIZATION_NAME_ADMIN' | translate }}</label>
+			</div>
+			<div class="form-group col-md-8" show-errors>
+				<input type="text" ng-model="organizationFormData.name"
+					ng-minlength="3" id="name" name="name" class="form-control"
+					required>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label class="control-label">{{'ORGANIZATION_TYPE_ADMIN' | translate }}</label>
+			</div>
+			<div class="form-group col-md-8" show-errors>
+				<select ng-model="organizationFormData.type"
+					ng-options="typeInfo.type as typeInfo.name for typeInfo in typeData"
+					name="type" class="form-control" required>
+					<option value="" style='display: none;' disabled>{{'ORGANIZATION_CHOOSE_TYPE_ADMIN' | translate }}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label class="control-label">{{'ORGANIZATION_TELEPHON_NUMBER_ADMIN' | translate }}</label>
+			</div>
+			<div class="form-group col-md-8" show-errors>
+				<input type="text" ng-model="organizationFormData.phone"
+					name="phone" class="form-control" required>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-4" ng-class="usernameValidation.css">
+				<label class="control-label">{{'EMAIL' | translate }}</label>
+			</div>
+			<div class="form-group col-md-8">
+				<input type="text" ng-model="organizationFormData.email" name="email"
+					class="form-control">
+			</div>
+		</div>
+
+		<div>
+			<hr />
+			<p class="help-block">{{'FILL_YOUR_SYSTEM_ADMINISTRATOR_FOR_ORGANIZATION' | translate }}</p>
+
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label class="control-label">{{'LOGIN_TWO' | translate }}</label>
+				</div>
+				<div class="form-group col-md-8" ng-class="usernameValidation.css">
+					<input type="text" ng-model="organizationFormData.username"
+						ng-model-options="{debounce: 350}" ng-change="checkUsername()"
+						id="username" name="username" class="form-control" required>
+					<p class="help-block" ng-if="!usernameValidation.isValid">{{
+						usernameValidation.message }}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label class="control-label">{{'PASSWORD_TWO' | translate}}</label>
+				</div>
+				<div class="form-group col-md-8" show-errors>
+					<input type="password" ng-model="organizationFormData.password"
+						name="password" class="form-control" required>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label class="control-label">{{'REPEAT_PASSWORD' | translate}}</label>
+				</div>
+				<div class="form-group col-md-8" show-errors>
+					<input type="password" ng-model="organizationFormData.rePassword"
+						name="rePassword" class="form-control" required>
+				</div>
+			</div>
+		</div>
+		<hr />
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">{{'ADDRESS' | translate }}</div>
+					<div class="panel-body">
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'REGION_TWO' | translate}}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="region" type="text"
+										ng-model="organizationFormData.region"
+										typeahead="region as region.designation for region in regions | filter: $viewValue"
+										typeahead-on-select="onRegionSelected(organizationFormData.region.id)"
+										typeahead-editable="false" class="form-control" required>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'DISTRICT_TWO' | translate}}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="district" type="text"
+										ng-model="organizationFormData.district"
+										typeahead="district as district.designation for district in districts | filter: $viewValue"
+										typeahead-on-select="onDistrictSelected(organizationFormData.district.id)"
+										typeahead-editable="false" class="form-control" required>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'LOCALITY_TWO' | translate}}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="locality" type="text"
+										ng-model="organizationFormData.locality"
+										typeahead="locality as locality.designation for locality in localities | filter: $viewValue"
+										typeahead-on-select="onLocalitySelected(organizationFormData.locality.id)"
+										typeahead-editable="false" class="form-control" required>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'STREET_TWO' | translate }}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="street" type="text"
+										ng-model="organizationFormData.street"
+										typeahead="street as street.designation for street in streets | filter: $viewValue"
+										typeahead-on-select="onStreetSelected(organizationFormData.street.id)"
+										typeahead-editable="false" class="form-control" required>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'HOUSE_TWO' | translate}}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="building" type="text"
+										ng-model="organizationFormData.building"
+										typeahead="building as building.designation for building in buildings | filter: $viewValue"
+										class="form-control" required>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">{{'FLAT' | translate}}</label>
+								</div>
+								<div class="form-group col-md-8">
+									<input name="flat" type="text"
+										ng-model="organizationFormData.flat" class="form-control"
+										required>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-10">
+				<button type="submit" class="btn btn-success" ng-click="onOrganizationFormSubmit()">{{'ADD' | translate}}</button>
+				<a class="btn btn-warning" ng-click="resetOrganizationForm()">{{'CLEAR_FORM' | translate }}</a>
+			</div>
+			<div class="form-group col-md-2">
+				<button class="btn btn-danger pull-right" ng-click="closeModal()">{{'CLOSE' | translate}}</button>
+			</div>
+		</div>
+
+	</form>
+</div>

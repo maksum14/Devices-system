@@ -1,0 +1,47 @@
+<div id="page-wrapper" ng-controller="SettingsController">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{'EDIT_PROFIL' | translate}} </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{'PASSWORD' | translate}}
+                </div>
+                <div class="panel-body">
+                    <form ng-submit="onChangePassSubmit()" name="changePassForm" novalidate>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" for="oldPass">{{'OLD_PASSWORD' | translate}} </label>
+                            <input type="text" id="oldPass" name="oldPass" class="form-control"
+                                   ng-model="oldPassword">
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" for="newPass">{{'NEW_PASSWORD' | translate}}</label>
+                            <input type="text" id="newPass" name="newPass" class="form-control"
+                                   ng-model="newPassword" ng-change="onNewPasswordChanged()">
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" for="newPassRe">{{'REPEAT_PASSWORD' | translate}}</label>
+                            <input type="text" id="newPassRe" name="newPassRe" class="form-control"
+                                   ng-model="newPasswordRe" ng-change="onNewPasswordReChanged()">
+                        </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-success">{{'EDIT' | translate}}</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8" ng-if="password.message">
+                                    <em ng-class="password.isChanged ? 'text-success' : 'text-danger'">
+                                        {{ password.message }}
+                                    </em>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

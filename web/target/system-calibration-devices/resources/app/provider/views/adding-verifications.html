@@ -1,0 +1,187 @@
+<div id="page-wrapper">
+    <div class="from-top form-group ">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">Додати повірку</h1>
+            </div>
+        </div>
+
+        <form class="form-horizontal" name="verificationForm" novalidate>
+
+                <div class="form-group">
+                    <label for="surname" class="col-sm-2 control-label">Прізвище</label>
+
+                    <div class="form-group col-md-4 has-feedback" show-errors>
+                        <input class="form-control" name="surname" id="surname" ng-model="form.surname"
+                               ng-pattern="/^[A-Za-z\u0400-\u04FF]+$/" required>
+
+                        <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                        <p class="help-block" ng-if="verificationForm.surname.$error.required">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле є обов'язковим для заповнення
+                        </p>
+
+                        <p class="help-block" ng-if="verificationForm.surname.$error.pattern">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле може містити лише буквенні символи
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Ім'я</label>
+
+                    <div class="form-group col-sm-4 has-feedback" show-errors>
+                        <input class="form-control" name="name" id="name" ng-model="form.name"
+                               ng-pattern="/^[A-Za-z\u0400-\u04FF]+$/" required>
+
+                        <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                        <p class="help-block" ng-if="verificationForm.name.$error.required">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле є обов'язковим для заповнення
+                        </p>
+
+                        <p class="help-block" ng-if="verificationForm.name.$error.pattern">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле може містити лише буквенні символи
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="middleName" class="col-sm-2 control-label">По-батькові</label>
+
+                    <div class="form-group col-sm-4 has-feedback" show-errors>
+                        <input class="form-control" name="middleName" id="middleName" ng-model="form.middleName"
+                               ng-pattern="/^[A-Za-z\u0400-\u04FF]+$/" required>
+
+                        <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                        <p class="help-block" ng-if="verificationForm.middleName.$error.required">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле є обов'язковим для заповнення
+                        </p>
+
+                        <p class="help-block" ng-if="verificationForm.middleName.$error.pattern">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле може містити лише буквенні символи
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="col-sm-2 control-label">Номер телефону</label>
+
+                    <div class="form-group has-feedback col-sm-4" show-errors>
+                        <input id="phone" name="phone" class="form-control" ng-model="form.phone"
+                               ng-pattern="/^0[1-9]\d{8}$/" required>
+
+                        <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                        <p class="help-block" ng-if="verificationForm.phone.$error.required">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Це поле є обов'язковим для заповнення
+                        </p>
+
+                        <p class="help-block" ng-if="verificationForm.phone.$error.pattern">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            Номер телефону повинен бути завповнений у наступному форматі:
+                            0{кодміста/оператора}{номер телефону}
+                        </p>
+                    </div>
+                </div>
+
+            <div class="form-group" show-errors>
+                <label for="locality" class="col-sm-2 control-label">Населений пункт</label>
+
+                <div class="form-group col-sm-4 has-feedback">
+                    <input class="form-control" name="locality" id="locality" ng-model="selectedLocality"
+                           typeahead="locality as locality.designation for locality in localities | filter: $viewValue"
+                           typeahead-on-select="receiveStreets(selectedLocality)"
+                           typeahead-editable="false" required>
+                    <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                    <p class="help-block">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Почніть вводити і виберіть відповідний варіант з випадаючого списку
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="street" class="col-sm-2 control-label">Вулиця</label>
+
+                <div class="form-group col-sm-4 has-feedback">
+                    <input class="form-control" name="street" id="street" ng-model="selectedStreet"
+                           typeahead="street as street.designation for street in streets | filter: $viewValue"
+                           typeahead-on-select="receiveBuildings(selectedStreet)"
+                           typeahead-editable="false" required>
+                    <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                    <p class="help-block">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Почніть вводити і виберіть відповідний варіант з випадаючого списку
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="building" class="col-sm-2 control-label">Будинок</label>
+
+                <div class="form-group col-sm-4 has-feedback">
+                    <input class="form-control" name="building" id="building" ng-model="selectedBuilding"
+                           typeahead="building as building.designation for building in buildings | filter: $viewValue"
+                           required>
+                    <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                    <p class="help-block">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Почніть вводити і виберіть відповідний варіант з випадаючого списку
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="flat" class="col-sm-2 control-label">Квартира</label>
+
+                <div class="form-group col-sm-4">
+                    <input class="form-control" name="flat" id="flat" ng-model="form.flat">
+                </div>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="calibrator" class="col-sm-2 control-label">Повірник</label>
+
+                <div class="form-group col-sm-4 has-feedback">
+                    <input class="form-control" name="calibrator" id="calibrator" ng-model="selectedCalibrator"
+                           typeahead="calibrator as calibrator.name for calibrator in calibrators | filter: $viewValue"
+                           typeahead-editable="false" required>
+                    <i class="form-control-feedback glyphicon glyphicon glyphicon-ok-sign"></i>
+
+                    <p class="help-block">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Почніть вводити і виберіть відповідний варіант з випадаючого списку
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group col-sm-offset-2 col-sm-10" style="padding-left: 250px">
+                    <button type="submit" class="btn btn-success" ng-click="saveVerification()" novalidate>
+                        Ініціювати повірку
+                    </button>
+                    <button type="button" class="btn btn-warning" ng-click="resetForm()">
+                        Скинути форму
+                    </button>
+                </div>
+
+            </div>
+            <span>{{form}}</span>
+        </form>
+    </div>
+</div>
+
